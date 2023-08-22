@@ -1,7 +1,7 @@
 # AWS SCPs
 Service control policies (SCPs) are meant to be used as coarse-grained guardrails, and they don’t directly grant access. The administrator must still attach identity-based or resource-based policies to IAM principals or resources in your accounts to actually grant permissions. The effective permissions are the logical intersection between what is allowed by the SCP and what is allowed by the IAM and resource-based policies. You can get more details about SCP effects on permissions here.
 
-![SCP Evaluation Logic ](./assets/DCP.png "SCP Evaluation Logic")
+![SCP Evaluation Logic ](./assets/SCP.png "SCP Evaluation Logic")
 
 # aws-scp-examples
 AWS SCPs Examples:
