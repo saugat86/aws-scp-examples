@@ -50,6 +50,7 @@ AWS SCPs Examples:
 ```
 ---
 3. `Deny Leave Organization:`
+
 The following policy blocks use of the LeaveOrganization API operation so that administrators of member accounts can't remove their accounts from the organization.
 
 
@@ -69,7 +70,9 @@ The following policy blocks use of the LeaveOrganization API operation so that a
 ```
 ---
 
-4. `Deny Service Access For Root User`
+4. `Deny Service Access For Root User:`
+
+The following policy restricts all access to the specified actions for the root user in a member account. If you want to prevent your accounts from using root credentials in specific ways, add your own actions to this policy.
 ```json
 {
     "Version": "2012-10-17",
