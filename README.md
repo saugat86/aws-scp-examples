@@ -190,3 +190,28 @@ The following policy enforces that only `ap-southeast-2` can be used, along with
     ]
 }
 ```
+
+# **AWS SCPs Best practices**
+
+SCPs grant limitless flexibility on how you manage permissions on the AWS cloud. Following the best practices given below will ensure that flexibility does not increase security risks.
+
+### 1. Use the least privilege principle
+
+Grant the minimum level of access necessary for users to perform their tasks. Do not create allow lists unless there is a very good reason to do so. You want to make sure your SCPs do not inadvertently grant unauthorized access, resulting in a data leak.
+
+### 2. Limit access to sensitive data
+
+Deny lists are a must have for highly sensitive data. You will need to map the AWS services that access sensitive data and create Deny lists for all users with free permission to such services.
+
+### 3. Set up IAM policies for all new users
+
+You must grant permissions with appropriate IAM policies to all users and roles. A new user without any defined IAM policies **has no access**, even if you create SCPs for them that allows all services and all actions.
+
+### 4. Update and review policies regularly
+
+Review and update your SCP policies regularly to ensure they are still appropriate and effective. This helps ensure that your policies align with your organization’s security needs.
+
+### Limitations:
+
+- AWS SCP has a 5,120-byte character limit. 
+- You can only attach up to 5 policies to any organizational unit.
