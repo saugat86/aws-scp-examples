@@ -49,7 +49,10 @@ AWS SCPs Examples:
 }
 ```
 ---
-3. `Deny Leave Organization`
+3. `Deny Leave Organization:`
+The following policy blocks use of the LeaveOrganization API operation so that administrators of member accounts can't remove their accounts from the organization.
+
+
 ```json
 {
     "Version": "2012-10-17",
