@@ -98,3 +98,93 @@ The following policy restricts all access to the specified actions for the root 
   }
   
 ```
+---
+5. `Deny ability to create IAM access keys:`
+
+In order to avoid having long lived credentials that never expire which can end up being exposed, some companies ban access keys entirely. This policy denies the ability to create IAM users and access keys.
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": {
+        "Effect": "Deny",
+        "Action": ["iam:CreateAccessKey", "iam:CreateUser"],
+        "Resource": "*"
+    }
+}
+```
+---
+6. `Deny Access To A Specific Role:`
+
+This policy can be used to deny modifications of an incident response or other security auditing role.
+
+```json
+{    
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "DenyAccessToASpecificRole",
+      "Effect": "Deny",
+      "Action": [
+        "iam:AttachRolePolicy",
+        "iam:DeleteRole",
+        "iam:DeleteRolePermissionsBoundary",
+        "iam:DeleteRolePolicy",
+        "iam:DetachRolePolicy",
+        "iam:PutRolePermissionsBoundary",
+        "iam:PutRolePolicy",
+        "iam:UpdateAssumeRolePolicy",
+        "iam:UpdateRole",
+        "iam:UpdateRoleDescription"
+      ],
+      "Resource": [
+        "arn:aws:iam::*:role/CHANGEME"
+      ]
+    }
+  ]
+}
+```
+7. `Restrict Regions: `
+
+The following policy enforces that only `ap-southeast-2` can be used, along with the global services. Be aware that if you use Lambda@Edge, you might need to adjust your code, or this policy, as you’ll likely end up making calls in other regions as the Lambdas that are run will default to making calls in the closest region to the distribution’s point of presence.
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "RestrictRegion",
+            "Effect": "Deny",
+            "NotAction": [
+                "a4b:*",
+                "budgets:*",
+                "ce:*",
+                "chime:*",
+                "cloudfront:*",
+                "cur:*",
+                "globalaccelerator:*",
+                "health:*",
+                "iam:*",
+                "importexport:*",
+                "mobileanalytics:*",
+                "organizations:*",
+                "route53:*",
+                "route53domains:*",
+                "shield:*",
+                "support:*",
+                "trustedadvisor:*",
+                "waf:*",
+                "wellarchitected:*"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringNotEquals": {
+                    "aws:RequestedRegion": [
+                        "ap-southeast-2"
+                    ]
+                }
+            }
+        }
+    ]
+}
+```
